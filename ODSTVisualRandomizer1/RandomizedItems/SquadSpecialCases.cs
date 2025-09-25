@@ -37,6 +37,17 @@ namespace ODSTVisualRandomizer1.RandomizedItems
             },
             new SquadSpecialCase()
             {
+                SquadNames = new List<string>()
+                {
+                    "sq_lobby_bugger_01",
+                    "sq_lobby_bugger_02",
+                },
+                RandomizeVehicles = false,
+                AllowedCharacters = {"bugger", "sentinel"}
+
+            },
+            new SquadSpecialCase()
+            {
                 SquadNames=new List<string>()
                 {
 
@@ -367,6 +378,7 @@ namespace ODSTVisualRandomizer1.RandomizedItems
                     "sq_olifaunt",
                     "sq_1a_phantom_01",
                     "sq_engineer",
+                    "sq_pelican_01",
                 },
                 Skip = true
             }

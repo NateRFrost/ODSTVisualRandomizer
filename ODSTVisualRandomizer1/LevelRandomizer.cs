@@ -100,7 +100,7 @@ namespace ODSTVisualRandomizer1
                 var start_time = DateTime.Now;
                 while (!File.Exists(fileToCopy))
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(50);
                     if (DateTime.Now - start_time > TimeSpan.FromMinutes(5))
                     {
                         throw new Exception("File not found: " + fileToCopy);

@@ -28,8 +28,11 @@ namespace ODSTVisualRandomizer1
         {
             Debug.WriteLine("Beginning randomization");
             progress.Report(3);
-            text_progress.Report("Unzipping game data. This can take 5+ minutes");
-            UnzipTags(settings);
+            if (settings.UnzipTags)
+            {
+                text_progress.Report("Unzipping game data. This can take 5+ minutes");
+                UnzipTags(settings);
+            }
             progress.Report(10);
             var param = new ManagedBlamStartupParameters();
             ManagedBlamCrashCallback del = info => { };
@@ -60,14 +63,17 @@ namespace ODSTVisualRandomizer1
                     Debug.WriteLine("Beginning randomization for " + level.FancyName);
                     LevelRandomizer level_randomizer = new LevelRandomizer(level, settings);
                     level_randomizer.Randomize();
-                    text_progress.Report("Building " + level.FancyName + ". This can take 5+ minutes");
-                    System.Threading.Thread.Sleep(500);
-                    level_randomizer.BuildCacheFile();
-                    System.Threading.Thread.Sleep(500);
-                    level_randomizer.CopyFileToMCC();
-                    level_randomizer.DeleteFromEk();
+                    if (settings.BuildLevels)
+                    {
+                        text_progress.Report("Building " + level.FancyName + ". This can take 5+ minutes");
+                        //System.Threading.Thread.Sleep(500);
+                        level_randomizer.BuildCacheFile();
+                        //System.Threading.Thread.Sleep(500);
+                        level_randomizer.CopyFileToMCC();
+                        level_randomizer.DeleteFromEk();
+                        text_progress.Report("The level " + level.FancyName + " is ready to play");
+                    }
                     Debug.WriteLine("Finished randomization for " + level.FancyName);
-                    text_progress.Report("The level " + level.FancyName + " is ready to play");
                 }
                 progress.Report(20 + ((80 / Levels.Count) * level_no));
             }
@@ -145,7 +151,7 @@ namespace ODSTVisualRandomizer1
                                     {
                                         TagFieldBlock modes_block = (TagFieldBlock)modes;
                                         modes_block.DuplicateElement(index);
-                                        System.Threading.Thread.Sleep(100);
+                                        //System.Threading.Thread.Sleep(100);
 
                                         var new_mode = modes_block.Elements[modes_block.Elements.Count - 1];
                                         var label = new_mode.Fields.Where(x => x.DisplayName == "label").FirstOrDefault();
@@ -233,7 +239,7 @@ namespace ODSTVisualRandomizer1
                                             if (copy_weapon_class_index != -1)
                                             {
                                                 ((TagFieldBlock)weapon_class_block).DuplicateElement(copy_weapon_class_index);
-                                                System.Threading.Thread.Sleep(100);
+                                                //System.Threading.Thread.Sleep(100);
                                                 var new_weapon_class = ((TagFieldBlock)weapon_class_block).Elements[((TagFieldBlock)weapon_class_block).Elements.Count - 1];
                                                 var label = new_weapon_class.Fields.Where(x => x.DisplayName == "label").FirstOrDefault();
                                                 if (label != null)
@@ -276,7 +282,7 @@ namespace ODSTVisualRandomizer1
                             Debug.WriteLine("duplicating weapon property for " + weapon.Name);
                             var copy_index = ((TagElement)weapon_property).ElementIndex;
                             ((TagFieldBlock)weapons_properties_block).DuplicateElement(copy_index);
-                            System.Threading.Thread.Sleep(200);
+                            //System.Threading.Thread.Sleep(200);
                             break;
                         }
                     }
@@ -300,7 +306,7 @@ namespace ODSTVisualRandomizer1
                             Debug.WriteLine("duplicating firing pattern properties for " + weapon.Name);
                             var copy_index = ((TagElement)firing_pattern).ElementIndex;
                             ((TagFieldBlock)firing_pattern_block).DuplicateElement(copy_index);
-                            System.Threading.Thread.Sleep(200);
+                            //System.Threading.Thread.Sleep(200);
                             break;
                         }
                     }
@@ -326,7 +332,7 @@ namespace ODSTVisualRandomizer1
                             Debug.WriteLine("duplicating vehicle property for " + vehicle.Name);
                             var copy_index = ((TagElement)vehicle_property).ElementIndex;
                             ((TagFieldBlock)vehicle_properties_block).DuplicateElement(copy_index);
-                            System.Threading.Thread.Sleep(200);
+                            //System.Threading.Thread.Sleep(200);
                             break;
                         }
                     }
@@ -455,6 +461,74 @@ namespace ODSTVisualRandomizer1
                 }
             }
             throw new Exception("Field not found\nTag file: " + tag_element.ElementHeaderText + "\nField: " + field_name + "\nvalid fields:\n" + string.Join("\n", fields_found));
+        }
+
+        private static void AppendTagFieldBlock(TagFieldBlock from_block, TagFieldBlock to_block)
+        {
+            //to_block.RemoveAllElements();
+            foreach (TagElement from_element in from_block.Elements)
+            {
+                TagElement to_element = to_block.AddElement(); //Maybe executes twice sometimes???
+                foreach (var from_field in from_element.Fields)
+                {
+                    var to_field = GetField(to_element, from_field.DisplayName);
+                    if (from_field.ReadOnly)
+                    {
+                        continue;
+                    }
+                    if (from_field is TagFieldElementStringID)
+                    {
+                        ((TagFieldElementStringID)to_field).Data = ((TagFieldElementStringID)from_field).Data;
+                    }
+                    else if (from_field is TagFieldElementInteger)
+                    {
+                        ((TagFieldElementInteger)to_field).Data = ((TagFieldElementInteger)from_field).Data;
+                    }
+                    else if (from_field is TagFieldReference)
+                    {
+                        ((TagFieldReference)to_field).Path = ((TagFieldReference)from_field).Path;
+                    }
+                    else if (from_field is TagFieldElementArrayInteger)
+                    {
+                        ((TagFieldElementArrayInteger)to_field).Data = ((TagFieldElementArrayInteger)from_field).Data;
+
+                    }
+                    else if (from_field is TagFieldCustom)
+                    {
+                        //((TagField)to_field) = ((TagFieldCustomType)from_field);
+                    }
+                    else if (from_field is TagFieldExplanation)
+                    {
+                        continue;
+                    }
+                    else if (from_field is TagFieldEnum)
+                    {
+                        ((TagFieldEnum)to_field).Value = ((TagFieldEnum)from_field).Value;
+                    }
+                    else if (from_field is TagFieldBlockIndex)
+                    {
+                        ((TagFieldBlockIndex)to_field).Value = ((TagFieldBlockIndex)from_field).Value;
+                    }
+                    else if (from_field is TagFieldFlags)
+                    {
+                        ((TagFieldFlags)to_field).RawValue = ((TagFieldFlags)from_field).RawValue;
+                    }
+                    else if (from_field is TagFieldElementStringNormal)
+                    {
+                        ((TagFieldElementStringNormal)to_field).Data = ((TagFieldElementStringNormal)from_field).Data;
+                    }
+                    else if (from_field is TagFieldBlock)
+                    {
+                        AppendTagFieldBlock((TagFieldBlock)from_field, (TagFieldBlock)to_field);
+                    }
+
+                    else
+                    {
+                        throw new Exception("Unknown field\nFrom field: " + from_field.DisplayName + " type: " + from_field.GetType() + "\nTo field: " + to_field.DisplayName + " type: " + to_field.GetType());
+                    }
+                }
+   
+            }
         }
 
         private static bool FieldExists(TagElement tag_element, string field_name)

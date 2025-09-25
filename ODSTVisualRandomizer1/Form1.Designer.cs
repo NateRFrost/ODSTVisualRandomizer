@@ -96,6 +96,12 @@ namespace ODSTVisualRandomizer1
             this.tableLayoutPanelEquipment = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLevels = new System.Windows.Forms.TableLayoutPanel();
+            this.TabAdvanced = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.ResetTagsCheckbox = new System.Windows.Forms.CheckBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.BuildLevelsCheckbox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanelPaths.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -110,6 +116,8 @@ namespace ODSTVisualRandomizer1
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.TabAdvanced.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // begin_randomization_button
@@ -441,6 +449,7 @@ namespace ODSTVisualRandomizer1
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.TabAdvanced);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1041,6 +1050,92 @@ namespace ODSTVisualRandomizer1
             this.tableLayoutPanelLevels.Size = new System.Drawing.Size(0, 0);
             this.tableLayoutPanelLevels.TabIndex = 15;
             // 
+            // TabAdvanced
+            // 
+            this.TabAdvanced.BackColor = System.Drawing.SystemColors.Control;
+            this.TabAdvanced.Controls.Add(this.tableLayoutPanel2);
+            this.TabAdvanced.Location = new System.Drawing.Point(10, 47);
+            this.TabAdvanced.Name = "TabAdvanced";
+            this.TabAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            this.TabAdvanced.Size = new System.Drawing.Size(963, 775);
+            this.TabAdvanced.TabIndex = 7;
+            this.TabAdvanced.Text = "Advanced";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.ResetTagsCheckbox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label25, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label26, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.BuildLevelsCheckbox, 1, 1);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(195, 73);
+            this.tableLayoutPanel2.TabIndex = 10;
+            // 
+            // ResetTagsCheckbox
+            // 
+            this.ResetTagsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ResetTagsCheckbox.AutoSize = true;
+            this.ResetTagsCheckbox.Checked = true;
+            this.ResetTagsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ResetTagsCheckbox.Location = new System.Drawing.Point(161, 5);
+            this.ResetTagsCheckbox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.ResetTagsCheckbox.Name = "ResetTagsCheckbox";
+            this.ResetTagsCheckbox.Size = new System.Drawing.Size(28, 27);
+            this.ResetTagsCheckbox.TabIndex = 21;
+            this.ResetTagsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 1);
+            this.label25.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(137, 35);
+            this.label25.TabIndex = 20;
+            this.label25.Text = "Reset Tags";
+            // 
+            // label26
+            // 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 37);
+            this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(144, 35);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "Build Levels";
+            // 
+            // BuildLevelsCheckbox
+            // 
+            this.BuildLevelsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.BuildLevelsCheckbox.AutoSize = true;
+            this.BuildLevelsCheckbox.Checked = true;
+            this.BuildLevelsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.BuildLevelsCheckbox.Location = new System.Drawing.Point(161, 41);
+            this.BuildLevelsCheckbox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.BuildLevelsCheckbox.Name = "BuildLevelsCheckbox";
+            this.BuildLevelsCheckbox.Size = new System.Drawing.Size(28, 27);
+            this.BuildLevelsCheckbox.TabIndex = 1;
+            this.BuildLevelsCheckbox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -1082,6 +1177,10 @@ namespace ODSTVisualRandomizer1
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.TabAdvanced.ResumeLayout(false);
+            this.TabAdvanced.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1151,6 +1250,12 @@ namespace ODSTVisualRandomizer1
         private CheckBox randomize_squad_vehicles_checkbox;
         private Label label18;
         private CheckBox randomize_squad_weapons_checkbox;
+        private TabPage TabAdvanced;
+        private TableLayoutPanel tableLayoutPanel2;
+        private CheckBox ResetTagsCheckbox;
+        private Label label25;
+        private Label label26;
+        private CheckBox BuildLevelsCheckbox;
     }
 }
 

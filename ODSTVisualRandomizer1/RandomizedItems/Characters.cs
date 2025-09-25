@@ -73,7 +73,7 @@ namespace ODSTVisualRandomizer1.RandomizedItems
                 new RandomizedObjectDetails{FancyName = "Marine", Name = "marine", Path =   @"objects\characters\marine\ai\marine", Weight = 5, Faction = Faction.Human},
                 new RandomizedObjectDetails{FancyName = "Marine Female", Name = "marine_female", Path =   @"objects\characters\marine\ai\marine_female", Weight = 5, Faction = Faction.Human},
                 new RandomizedObjectDetails{FancyName = "Marine ODST", Name = "marine_odst", Path =   @"objects\characters\marine\ai\marine_odst", Weight = 5, Faction = Faction.Human},
-                new RandomizedObjectDetails{FancyName = "Marine ODST Seargent", Name = "marine_odst_sgt", Path =   @"objects\characters\marine\ai\marine_odst_sgt", Weight = 5, Faction = Faction.Human},
+                //new RandomizedObjectDetails{FancyName = "Marine ODST Seargent", Name = "marine_odst_sgt", Path =   @"objects\characters\marine\ai\marine_odst_sgt", Weight = 5, Faction = Faction.Human},
                 new RandomizedObjectDetails{FancyName = "Marine Seargent", Name = "marine_sgt", Path =   @"objects\characters\marine\ai\marine_sgt", Weight = 5, Faction = Faction.Human},
                 new RandomizedObjectDetails{FancyName = "Marine Pilot", Name = "marine_pilot", Path =   @"objects\characters\marine\ai\marine_pilot", Weight = 5, Faction = Faction.Human},
                 new RandomizedObjectDetails{FancyName = "Marine Wounded", Name = "marine_wounded", Path =   @"objects\characters\marine\ai\marine_wounded", Weight = 5, Faction = Faction.Human},

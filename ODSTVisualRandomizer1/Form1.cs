@@ -14,7 +14,7 @@ namespace ODSTVisualRandomizer1
     public partial class Form1 : Form
     {
         Randomizer Randomizer = new Randomizer();
-        RandomizerSettings Settings = new RandomizerSettings();
+        public RandomizerSettings Settings = new RandomizerSettings();
 
         public Form1()
         {
@@ -233,6 +233,8 @@ namespace ODSTVisualRandomizer1
             randomize_weapon_stash_type_checkbox.DataBindings.Add("Checked", Settings, "RandomizeWeaponStashTypes", true, DataSourceUpdateMode.OnPropertyChanged);
             randomize_cutscenes_checkbox.DataBindings.Add("Checked", Settings, "RandomizeCutscenes", true, DataSourceUpdateMode.OnPropertyChanged);
             randomize_starting_profiles_checkbox.DataBindings.Add("Checked", Settings, "RandomizeStartingProfiles", true, DataSourceUpdateMode.OnPropertyChanged);
+            ResetTagsCheckbox.DataBindings.Add("Checked", Settings, "UnzipTags", true, DataSourceUpdateMode.OnPropertyChanged);
+            BuildLevelsCheckbox.DataBindings.Add("Checked", Settings, "BuildLevels", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         public void CopyManagedBlam()

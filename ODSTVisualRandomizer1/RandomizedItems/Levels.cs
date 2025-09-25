@@ -19,7 +19,7 @@ namespace ODSTVisualRandomizer1.RandomizedItems
 
         public static List<Level> Levels = new List<Level>()
         {
-            new Level{Name = "c100", FancyName = "Prepare To Drop"},
+            new Level{Name = "c100", FancyName = "Prepare To Drop", CutsceneOnly = true},
             new Level{Name = "h100", FancyName = "Mombasa Streets"},
             new Level{Name = "sc100", FancyName = "Tayari Plaza"},
             new Level{Name = "sc110", FancyName = "Uplift Reserve", },

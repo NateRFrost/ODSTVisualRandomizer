@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -63,7 +64,8 @@ namespace ODSTVisualRandomizer1
                         return;
                     }
                     Debug.WriteLine("randomizing " + Squad.ElementHeaderText);
-                    var cells_block = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "designer")).Elements[0].Fields[0];
+                    var designer_cells_block = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "designer")).Elements[0].Fields[0];
+                    var template_cells_block = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "templated")).Elements[0].Fields[0];
 
                     /*
                      var starting_locations_block = GetField(Squad, "spawn points");
@@ -72,22 +74,37 @@ namespace ODSTVisualRandomizer1
                         RandomizeTypes(starting_location);
                     }
                     */
+                    
                     List<int> spawn_cell_indexes = GetSpawnCellIndexes();
-                    MoveTemplateCellsToDesignerCells();
+                    CopyTemplateCellsToDesignerCells();
                     RemoveTemplate();
                     ClearSpawnPointsOverrides();
                     ApplySpawnCellIndexes(spawn_cell_indexes);
-                    foreach (TagFieldBlockElement cell in ((TagFieldBlock)cells_block).Elements)
+    
+                    ClearSpawnPointsOverrides();
+                    RandomizeCells(designer_cells_block);
+                    RandomizeCells(template_cells_block);
+                }
+
+                private void RandomizeCells(TagFieldBlock cells)
+                {
+                    foreach (TagFieldBlockElement cell in ((TagFieldBlock)cells).Elements)
                     {
-                        var normal_diff_count_field = GetField(cell, "normal diff count");
-                        ((TagFieldElementInteger)normal_diff_count_field).Data = (int)(((TagFieldElementInteger)normal_diff_count_field).Data * Settings.SquadSizeMultiplier);
-                        RandomizeCellCharacters(cell);
-                        RandomizeCellWeapons(cell);
-                        RandomlyMakeHunter(cell);
-                        RandomizeCellVehicle(cell);
-                        RandomlyGiveVehicle(cell);
+                        RandomizeCell(cell);
                     }
                 }
+
+                private void RandomizeCell(TagFieldBlockElement cell)
+                {
+                    var normal_diff_count_field = GetField(cell, "normal diff count");
+                    ((TagFieldElementInteger)normal_diff_count_field).Data = (int)(((TagFieldElementInteger)normal_diff_count_field).Data * Settings.SquadSizeMultiplier);
+                    RandomizeCellCharacters(cell);
+                    RandomizeCellWeapons(cell);
+                    RandomlyMakeHunter(cell);
+                    RandomizeCellVehicle(cell);
+                    RandomlyGiveVehicle(cell);
+                }
+
 
                 private void RandomizeCellCharacters(TagFieldBlockElement cell)
                 {
@@ -186,21 +203,37 @@ namespace ODSTVisualRandomizer1
                     }
                 }
 
-                private void MoveTemplateCellsToDesignerCells()
+
+                private void CopyTemplateCellsToDesignerCells()
                 {
 
                     TagFieldBlock designer_cells = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "designer")).Elements[0].Fields[0];
-                    TagFieldBlock template_cells = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "templated")).Elements[0].Fields[0]; ;
-                    if (template_cells.Elements.Count > 0)
+                    TagFieldBlock template_cells = (TagFieldBlock)((TagFieldStruct)GetField(Squad, "templated")).Elements[0].Fields[0];
+                    if (template_cells.Elements.Count > 0 && designer_cells.Elements.Count > 0)
                     {
-                        template_cells.CopyEntireTagBlock();
-                        while (!template_cells.ClipboardContainsEntireBlock())
-                        {
-                            System.Threading.Thread.Sleep(50);
-                        }
-                        designer_cells.PasteReplaceEntireBlock();
-                        template_cells.RemoveAllElements();
+                        designer_cells.RemoveAllElements();
                     }
+                    AppendTagFieldBlock(template_cells, designer_cells);
+                    template_cells.RemoveAllElements();
+                }
+
+                private bool CellsCopiedSuccessfully(TagFieldBlock cell_block_1, TagFieldBlock cell_block_2)
+                {
+                    if (cell_block_1.Elements.Count != cell_block_2.Elements.Count)
+                    {
+                        return false;
+                    }
+                    var block_1_and_2 = cell_block_1.Elements.Zip(cell_block_2.Elements, (a, b) => new { a, b });
+                    foreach(var pair in block_1_and_2)
+                    {
+                        var name_1 = ((TagFieldElementStringID)GetField((TagElement)pair.a, "name")).Data;
+                        var name_2 = ((TagFieldElementStringID)GetField((TagElement)pair.b, "name")).Data;
+                        if (name_1 != name_2)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
                 }
 
                 // Randomizes the types for a fireteam or starting location

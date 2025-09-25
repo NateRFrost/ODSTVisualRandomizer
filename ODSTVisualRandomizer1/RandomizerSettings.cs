@@ -27,6 +27,8 @@ namespace ODSTVisualRandomizer1
         public string EkPath { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\H3ODSTEK";
         public string MCCPath { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\Halo The Master Chief Collection";
 
+        public bool UnzipTags { get; set; } = true;
+        public bool BuildLevels { get; set; } = true;
 
         public bool RandomizeCutscenes { get; set; } = true;
         public bool RandomizeWeapons { get; set; } = true;
