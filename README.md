@@ -1,5 +1,5 @@
 # ODSTVisualRandomizer
-An easy-to-use randomizer for Halo 3: ODST on the Master Chief Collection (MCC).
+An easy-to-use campaign randomizer for Halo 3: ODST on the Master Chief Collection (MCC).
 
 
 
@@ -16,7 +16,7 @@ An easy-to-use randomizer for Halo 3: ODST on the Master Chief Collection (MCC).
 5. Make sure the MCC path and H3ODSTEK path matches what is on your computer.
      - You can check the path of each from your steam library by: right clicking -> manage -> browse local files
      - If you have your MCC installation across multiple locations, make sure it is the one where Halo 3: ODST is installed.
-6. Click start randomization. The first level takes 10+ minutes to finish randomizing. All levels finish randomizing in about 60 minutes.
+6. Click start randomization. The first level takes 10+ minutes to finish randomizing. Mombasa Streets takes the longest of each level. All levels finish randomizing in about 60 minutes.
 7. Play! Make sure you boot MCC with anti-cheat off. You can play levels that have already been randomized while you wait for the remaining levels to randomize.
 
 # FAQ
@@ -25,7 +25,7 @@ An easy-to-use randomizer for Halo 3: ODST on the Master Chief Collection (MCC).
 - How likely is a softlock?
   - Pretty unlikely. You should expect to go through the game with no major issues. Once in a blue moon, an enemy you need to kill will be stuck in level geometry. If you get stuck, try looking around for enemies on rooftops or backtracking and going back through a level without using a flying vehicle.
 - Can I play this online with friends?
-  - Unlike the other randomizer I've made for Halo, online will not consistently work. A later version will likely have this fixed.
+  - Hypothetically if you and your friend run the tool with the same settings and seed, you'll be able to play together. However this is not fully tested.
 - Why does the randomizer take so long?
   - It builds and compiles each level from scratch using the offiical mod tools. This ensures that all objects are loaded into each level and made it drasticlly easier for me to code.
 - Will you make randomizers for the other Halo games?
