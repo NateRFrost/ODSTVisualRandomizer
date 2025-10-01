@@ -34,6 +34,9 @@ namespace ODSTVisualRandomizer1.RandomizedItems
                 
                 new RandomizedObjectDetails{FancyName = "Rocket Launcher Ammo", Name = "rocket_launcher_ammo", Path = @"objects\powerups\rocket_launcher_ammo\rocket_launcher_ammo", Weight = 3},
                 new RandomizedObjectDetails{FancyName = "Sniper Rifle Ammo", Name = "sniper_rifle_ammo", Path = @"objects\powerups\sniper_rifle_ammo\sniper_rifle_ammo", Weight = 3},
+                new RandomizedObjectDetails{FancyName = "Assault Rifle Ammo", Name = "assault_rifle_ammo", Path = @"objects\powerups\assault_rifle_ammo\assault_rifle_ammo", Weight = 3},
+                new RandomizedObjectDetails{FancyName = "SMG Ammo", Name = "smg_ammo", Path = @"objects\powerups\smg_ammo\smg_ammo", Weight = 3},
+                new RandomizedObjectDetails{FancyName = "Pistol Ammo", Name = "pistol_ammo", Path = @"objects\powerups\pistol_ammo\pistol_ammo", Weight = 3},
 
                 new RandomizedObjectDetails{FancyName = "Health Pack Large", Name = "health_pack_large", Path = @"objects\powerups\health_pack\health_pack_large", Weight = 10},
                 new RandomizedObjectDetails{FancyName = "Health Pack Medium", Name = "health_pack_medium", Path = @"objects\powerups\health_pack\health_pack_medium", Weight = 10},

@@ -80,8 +80,6 @@ namespace ODSTVisualRandomizer1
                     RemoveTemplate();
                     ClearSpawnPointsOverrides();
                     ApplySpawnCellIndexes(spawn_cell_indexes);
-    
-                    ClearSpawnPointsOverrides();
                     RandomizeCells(designer_cells_block);
                     RandomizeCells(template_cells_block);
                 }
@@ -217,24 +215,6 @@ namespace ODSTVisualRandomizer1
                     template_cells.RemoveAllElements();
                 }
 
-                private bool CellsCopiedSuccessfully(TagFieldBlock cell_block_1, TagFieldBlock cell_block_2)
-                {
-                    if (cell_block_1.Elements.Count != cell_block_2.Elements.Count)
-                    {
-                        return false;
-                    }
-                    var block_1_and_2 = cell_block_1.Elements.Zip(cell_block_2.Elements, (a, b) => new { a, b });
-                    foreach(var pair in block_1_and_2)
-                    {
-                        var name_1 = ((TagFieldElementStringID)GetField((TagElement)pair.a, "name")).Data;
-                        var name_2 = ((TagFieldElementStringID)GetField((TagElement)pair.b, "name")).Data;
-                        if (name_1 != name_2)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
 
                 // Randomizes the types for a fireteam or starting location
                 private void RandomizeTypes(TagFieldBlockElement element)
@@ -410,7 +390,11 @@ namespace ODSTVisualRandomizer1
                                 ((TagFieldBlockIndex)vehicle_field).Value = -1;
                             }
                             var seat_field = GetField(spawn_point, "seat type");
-                            ((TagFieldEnum)seat_field).Value = 0;
+                            // if the seat is not "driver" (3), set it to "default" (0)
+                            if (((TagFieldEnum)seat_field).Value != 3)
+                            {
+                                ((TagFieldEnum)seat_field).Value = 0;
+                            }
                         }
                     }
                 }

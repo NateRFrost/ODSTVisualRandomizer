@@ -141,7 +141,7 @@ namespace ODSTVisualRandomizer1
                         bool found = false;
                         foreach (var element in palette_block.Elements)
                         {
-                            if (element.ElementHeaderText.ToLower().Contains(object_type.Name.ToLower()))
+                            if (element.ElementHeaderText.ToLower() == object_type.Name.ToLower())
                             {
                                 found = true;
                                 break;

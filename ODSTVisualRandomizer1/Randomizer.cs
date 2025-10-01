@@ -49,6 +49,7 @@ namespace ODSTVisualRandomizer1
             //text_progress.Report("Fixing jetpack enemies");
             progress.Report(17);
             FixCharacterProperties();
+            CopyWeaponProperties();
             if (settings.RandomizeCutscenes)
             {
                 text_progress.Report("Randomizing cutscenes");
@@ -354,6 +355,32 @@ namespace ODSTVisualRandomizer1
 
         }
 
+        public void CopyWeaponProperties()
+        {
+            Debug.WriteLine("Copying weapon properties");
+            foreach (var weapon in weapons.List)
+            {
+                if (string.IsNullOrEmpty(weapon.CopyPropertiesFrom))
+                {
+                    continue;
+                }
+                Debug.WriteLine("Copying weapon properties for " + weapon.Name);
+                var from_tag_path = TagPath.FromPathAndType(weapon.CopyPropertiesFrom, weapons.Type);
+                var to_tag_path = TagPath.FromPathAndType(weapon.Path, weapons.Type);
+                using (TagFile from_tag_file = new TagFile(from_tag_path))
+                using (TagFile to_tag_file = new TagFile(to_tag_path))
+                {
+                    var from_interface = GetField(from_tag_file, "player interface");
+                    var to_interface = GetField(to_tag_file, "player interface");
+                    var from_chud = (TagFieldReference)GetField(((TagFieldStruct)from_interface).Elements.First(), "chud interface");
+                    var to_chud = (TagFieldReference)GetField(((TagFieldStruct)to_interface).Elements.First(), "chud interface");
+                    to_chud.Path = TagPath.FromPathAndExtension(from_chud.Path.ToString().Split('.')[0], from_chud.Path.ToString().Split('.')[1]);
+                    to_tag_file.Save();
+
+                }
+            }
+        }
+
         public void RandomizeCutscenes(RandomizerSettings settings)
         {
             Random rand = new Random(settings.Seed);
@@ -440,7 +467,7 @@ namespace ODSTVisualRandomizer1
             var fields_found = new List<string>();
             foreach (var field in tag_file.Fields)
             {
-                fields_found.Add(field.DisplayName);
+                fields_found.Add(field.DisplayName + " Type: " + field.FieldType + " Subtype: " + field.FieldSubtype);
                 if (field.DisplayName == field_name)
                 {
                     return field;
@@ -454,7 +481,7 @@ namespace ODSTVisualRandomizer1
             var fields_found = new List<string>();
             foreach (var field in tag_element.Fields)
             {
-                fields_found.Add(field.DisplayName);
+                fields_found.Add(field.DisplayName + " Type: " + field.FieldType + " Subtype: " + field.FieldSubtype);
                 if (field.DisplayName == field_name)
                 {
                     return field;
